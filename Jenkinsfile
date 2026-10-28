@@ -45,9 +45,13 @@ pipeline {
       steps {
         script {
           // >>>>>> TOMORROW: CHANGE ONLY THESE LINES <<<<<<
-          runCmd('kubectl apply -f k8s/deployment.yaml')
-          runCmd('kubectl apply -f k8s/service.yaml')
-          runCmd('kubectl rollout status deployment/web-app --timeout=120s')
+         runCmd('kubectl apply -f k8s/deployment.yaml')
+runCmd('kubectl set image deployment/web-app web=lakshminarayananr0411/k8s-demo:wrong-tag')
+try { runCmd('kubectl rollout status deployment/web-app --timeout=45s') } catch (e) { echo 'FAILURE DETECTED' }
+runCmd('kubectl get pods -l app=web-app')
+runCmd('kubectl describe pods -l app=web-app')
+runCmd('kubectl rollout undo deployment/web-app')
+runCmd('kubectl rollout status deployment/web-app --timeout=120s')
           // >>>>>> END <<<<<<
         }
       }
