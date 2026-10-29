@@ -46,8 +46,10 @@ pipeline {
         script {
           // >>>>>> TOMORROW: CHANGE ONLY THESE LINES <<<<<<
           runCmd('kubectl apply -f k8s/deployment.yaml')
-          runCmd('kubectl apply -f k8s/service.yaml')
-          runCmd('kubectl rollout status deployment/web-app --timeout=120s')
+runCmd('kubectl rollout status deployment/web-app --timeout=120s')
+runCmd('kubectl apply -f k8s/service.yaml')
+runCmd('kubectl get svc web-svc')
+runCmd('kubectl get endpoints web-svc')
           // >>>>>> END <<<<<<
         }
       }
